@@ -10960,6 +10960,28 @@ RightWrapper = New("Frame", {
             Library:ApplyLucideIcon(MoveIconImage, MoveIcon)
         end
 
+if WindowInfo.Resizable then
+            ResizeButton = New("ImageButton", {
+                AnchorPoint = Vector2.new(1, 0.5),
+                BackgroundTransparency = 1,
+                ImageColor3 = "OutlineColor",
+                Position = UDim2.new(1, -46, 0.5, 0),
+                Size = UDim2.fromOffset(28, 28),
+                SizeConstraint = Enum.SizeConstraint.RelativeYY,
+                AutoButtonColor = false,
+                Parent = TopBar,
+            })
+            if ResizeIcon then
+                Library:ApplyLucideIcon(ResizeButton, ResizeIcon)
+            end
+
+            Library:MakeResizable(MainFrame, ResizeButton, function()
+                for _, Tab in Library.Tabs do
+                    Tab:Resize(true)
+                end
+            end)
+        end
+        
         --// Bottom Bar \\--
         BottomBackground = New("Frame", {
             AnchorPoint = Vector2.new(0, 1),
