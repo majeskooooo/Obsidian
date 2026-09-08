@@ -2429,6 +2429,39 @@ function Library:AddOutline(Frame: GuiObject)
     return OutlineStroke, ShadowStroke
 end
 
+function Library:AddGlow(Frame: GuiObject, GlowColor: any?, GlowSize: number?, GlowTransparency: number?)
+    GlowColor = GlowColor or "AccentColor"
+    GlowSize = GlowSize or 40
+    GlowTransparency = GlowTransparency or 0.5
+
+    local GlowHolder = New("Frame", {
+        Name = "GlowHolder",
+        BackgroundTransparency = 1,
+        BorderSizePixel = 0,
+        Size = UDim2.fromScale(1, 1),
+        ZIndex = 0,
+        Parent = Frame,
+    })
+
+    local Glow = New("ImageLabel", {
+        Name = "Glow",
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        BackgroundTransparency = 1,
+        BorderSizePixel = 0,
+        Position = UDim2.fromScale(0.5, 0.5),
+        Size = UDim2.new(1, GlowSize, 1, GlowSize),
+        ZIndex = 0,
+        Image = "rbxassetid://6014261993",
+        ImageColor3 = GlowColor,
+        ImageTransparency = GlowTransparency,
+        ScaleType = Enum.ScaleType.Slice,
+        SliceCenter = Rect.new(49, 49, 450, 450),
+        Parent = GlowHolder,
+    })
+
+    return GlowHolder, Glow
+end
+
 function Library:AddGlow(Frame: GuiObject, GlowColor: any?, Layers: number?, MaxThickness: number?)
     GlowColor = GlowColor or "AccentColor"
     Layers = Layers or 5
