@@ -11351,6 +11351,9 @@ end
             Button.Padding.PaddingLeft = UDim.new(0, IsCompact and 6 or 12)
             Button.Padding.PaddingRight = UDim.new(0, IsCompact and 6 or 12)
             Button.Padding.PaddingTop = UDim.new(0, IsCompact and 6 or 11)
+            Button.Icon.AnchorPoint = IsCompact and Vector2.new(0, 0) or Vector2.new(0, 0.5)
+            Button.Icon.Position = IsCompact and UDim2.fromScale(0, 0) or UDim2.new(0, 0, 0.5, 0)
+            Button.Icon.Size = IsCompact and UDim2.fromScale(1, 1) or UDim2.fromOffset(18, 18)
             Button.Icon.SizeConstraint = IsCompact and Enum.SizeConstraint.RelativeXY or Enum.SizeConstraint.RelativeYY
         end
     end
