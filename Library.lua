@@ -2547,7 +2547,7 @@ function Library:MakeBoxPopOut(Box: any, Options: {
     After: (() -> ())?,
 })
     Box.PoppedOut = false
-    Box.PopOutEnabled = Options.Enabled ~= false
+    Box.PopOutEnabled = false
     Box.PopOutFloat = nil
     Box.PopOutPlaceholder = nil
 
