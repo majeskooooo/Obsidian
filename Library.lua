@@ -10846,12 +10846,13 @@ RightWrapper = New("Frame", {
             Parent = RightWrapper,
         })
 
-        CurrentTabInfo = New("Frame", {
-            Size = UDim2.fromScale(WindowInfo.DisableSearch and 1 or 0.5, 1),
-            Visible = false,
-            BackgroundTransparency = 1,
-            Parent = RightWrapper,
-        })
+CurrentTabInfo = New("Frame", {
+    Size = UDim2.fromScale(WindowInfo.DisableSearch and 1 or 0.5, 1),
+    Visible = false,
+    BackgroundTransparency = 1,
+    ClipsDescendants = true,
+    Parent = RightWrapper,
+})
 
         New("UIFlexItem", {
             FlexMode = Enum.UIFlexMode.Grow,
@@ -10873,27 +10874,29 @@ RightWrapper = New("Frame", {
             Parent = CurrentTabInfo,
         })
 
-        CurrentTabLabel = New("TextLabel", {
-            BackgroundTransparency = 1,
-            Size = UDim2.fromScale(1, 0),
-            AutomaticSize = Enum.AutomaticSize.Y,
-            Text = "",
-            TextSize = 14,
-            TextXAlignment = Enum.TextXAlignment.Left,
-            Parent = CurrentTabInfo,
-        })
+CurrentTabLabel = New("TextLabel", {
+    BackgroundTransparency = 1,
+    Size = UDim2.fromScale(1, 0),
+    AutomaticSize = Enum.AutomaticSize.Y,
+    Text = "",
+    TextSize = 14,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextTruncate = Enum.TextTruncate.AtEnd,
+    Parent = CurrentTabInfo,
+})
 
-        CurrentTabDescription = New("TextLabel", {
-            BackgroundTransparency = 1,
-            Size = UDim2.fromScale(1, 0),
-            AutomaticSize = Enum.AutomaticSize.Y,
-            Text = "",
-            TextWrapped = true,
-            TextSize = 14,
-            TextXAlignment = Enum.TextXAlignment.Left,
-            TextTransparency = 0.5,
-            Parent = CurrentTabInfo,
-        })
+CurrentTabDescription = New("TextLabel", {
+    BackgroundTransparency = 1,
+    Size = UDim2.fromScale(1, 0),
+    AutomaticSize = Enum.AutomaticSize.Y,
+    Text = "",
+    TextWrapped = true,
+    TextSize = 14,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextTransparency = 0.5,
+    TextTruncate = Enum.TextTruncate.AtEnd,
+    Parent = CurrentTabInfo,
+})
 
         SearchBox = New("TextBox", {
             BackgroundColor3 = "MainColor",
