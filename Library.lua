@@ -10658,6 +10658,7 @@ function Library:CreateWindow(WindowInfo)
     local ResizeButton
     local Tabs
     local Container
+    local TopBarResizeSpace = WindowInfo.Resizable and 36 or 0
     local BackgroundImage
     local HasBackgroundImage = false
     local BottomBackground
@@ -10828,8 +10829,6 @@ function Library:CreateWindow(WindowInfo)
         })
 
         --// Top Right Bar \\--
-local TopBarResizeSpace = WindowInfo.Resizable and 36 or 0
-
 RightWrapper = New("Frame", {
     AnchorPoint = Vector2.new(1, 0.5),
     BackgroundTransparency = 1,
@@ -11379,7 +11378,7 @@ end
         DividerLine.Position = UDim2.fromOffset(Width, 0)
 
         TitleHolder.Size = UDim2.new(0, Width, 1, 0)
-        RightWrapper.Size = UDim2.new(1, -Width - 57 - 1, 1, -16)
+        RightWrapper.Size = UDim2.new(1, -Width - 57 - 1 - TopBarResizeSpace, 1, -16)
         Tabs.Size = UDim2.new(0, Width, 1, -70)
         Container.Size = UDim2.new(1, -Width - 1, 1, -70)
 
