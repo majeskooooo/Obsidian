@@ -373,6 +373,8 @@ local Templates = {
     Window = {
         Title = "No Title",
         Footer = "No Footer",
+        FooterLeft = "",
+        FooterRight = "",
 
         Position = UDim2.fromOffset(6, 6),
         Size = UDim2.fromOffset(720, 600),
@@ -10660,6 +10662,8 @@ function Library:CreateWindow(WindowInfo)
     local HasBackgroundImage = false
     local BottomBackground
     local FooterLabel
+    local FooterLabelLeft
+    local FooterLabelRight
     local TopBar
     local WindowSnapConfig = {
         Enabled = WindowInfo.Snapping,
@@ -11013,15 +11017,41 @@ if WindowInfo.Resizable then
             })
         )
 
-        --// Footer \\-
-        FooterLabel = New("TextLabel", {
-            BackgroundTransparency = 1,
-            Size = UDim2.fromScale(1, 1),
-            Text = WindowInfo.Footer,
-            TextSize = 14,
-            TextTransparency = 0.5,
-            Parent = BottomBar,
-        })
+New("UIPadding", {
+    PaddingLeft = UDim.new(0, 8),
+    PaddingRight = UDim.new(0, 8),
+    Parent = BottomBar,
+})
+
+--// Footer \\-
+FooterLabel = New("TextLabel", {
+    BackgroundTransparency = 1,
+    Size = UDim2.fromScale(1, 1),
+    Text = WindowInfo.Footer,
+    TextSize = 14,
+    TextXAlignment = Enum.TextXAlignment.Center,
+    Parent = BottomBar,
+})
+
+FooterLabelLeft = New("TextLabel", {
+    BackgroundTransparency = 1,
+    Size = UDim2.fromScale(1, 1),
+    Text = WindowInfo.FooterLeft,
+    TextSize = 14,
+    TextTransparency = 0.5,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    Parent = BottomBar,
+})
+
+FooterLabelRight = New("TextLabel", {
+    BackgroundTransparency = 1,
+    Size = UDim2.fromScale(1, 1),
+    Text = WindowInfo.FooterRight,
+    TextSize = 14,
+    TextTransparency = 0.5,
+    TextXAlignment = Enum.TextXAlignment.Right,
+    Parent = BottomBar,
+})
 
         --// Tabs \\--
         Tabs = New("ScrollingFrame", {
@@ -11150,6 +11180,20 @@ if WindowInfo.Resizable then
         FooterLabel.Text = Footer
         WindowInfo.Footer = Footer
     end
+
+function Window:SetFooterLeft(Footer: string)
+    assert(typeof(Footer) == "string", "Expected string for footer got: " .. typeof(Footer))
+
+    FooterLabelLeft.Text = Footer
+    WindowInfo.FooterLeft = Footer
+end
+
+function Window:SetFooterRight(Footer: string)
+    assert(typeof(Footer) == "string", "Expected string for footer got: " .. typeof(Footer))
+
+    FooterLabelRight.Text = Footer
+    WindowInfo.FooterRight = Footer
+end
 
     function Window:SetAlwaysOnTop(Enabled: boolean)
         WindowInfo.AlwaysOnTop = Enabled == true
