@@ -10824,13 +10824,15 @@ function Library:CreateWindow(WindowInfo)
         })
 
         --// Top Right Bar \\--
-        RightWrapper = New("Frame", {
-            AnchorPoint = Vector2.new(1, 0.5),
-            BackgroundTransparency = 1,
-            Position = UDim2.new(1, -49, 0.5, 0),
-            Size = UDim2.new(1, -InitialLeftWidth - 57 - 1, 1, -16),
-            Parent = TopBar,
-        })
+local TopBarResizeSpace = WindowInfo.Resizable and 36 or 0
+
+RightWrapper = New("Frame", {
+    AnchorPoint = Vector2.new(1, 0.5),
+    BackgroundTransparency = 1,
+    Position = UDim2.new(1, -49 - TopBarResizeSpace, 0.5, 0),
+    Size = UDim2.new(1, -InitialLeftWidth - 57 - 1 - TopBarResizeSpace, 1, -16),
+    Parent = TopBar,
+})
 
         New("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal,
@@ -10998,36 +11000,6 @@ function Library:CreateWindow(WindowInfo)
             TextTransparency = 0.5,
             Parent = BottomBar,
         })
-
-        --// Resize Button \\--
-        if WindowInfo.Resizable then
-            ResizeButton = New("TextButton", {
-                AnchorPoint = Vector2.new(1, 0),
-                BackgroundTransparency = 1,
-                Position = UDim2.new(1, -WindowInfo.CornerRadius / 4, 0, 0),
-                Size = UDim2.fromScale(1, 1),
-                SizeConstraint = Enum.SizeConstraint.RelativeYY,
-                Text = "",
-                Parent = BottomBar,
-            })
-
-            Library:MakeResizable(MainFrame, ResizeButton, function()
-                for _, Tab in Library.Tabs do
-                    Tab:Resize(true)
-                end
-            end)
-        end
-
-        local WindowResizeIcon = New("ImageLabel", {
-            ImageColor3 = "FontColor",
-            ImageTransparency = 0.5,
-            Position = UDim2.fromOffset(2, 2),
-            Size = UDim2.new(1, -4, 1, -4),
-            Parent = ResizeButton,
-        })
-        if ResizeIcon then
-            Library:ApplyLucideIcon(WindowResizeIcon, ResizeIcon)
-        end
 
         --// Tabs \\--
         Tabs = New("ScrollingFrame", {
@@ -11208,7 +11180,6 @@ function Library:CreateWindow(WindowInfo)
         Library.CornerRadius = Radius
         WindowInfo.CornerRadius = Radius
 
-        ResizeButton.Position = UDim2.new(1, -Radius / 4, 0, 0)
         BottomBackground.Size = UDim2.new(1, 0, 0, 20 + Radius)
 
         for _, Menu in Library.ContextMenus do
