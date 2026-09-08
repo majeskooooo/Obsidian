@@ -2429,6 +2429,31 @@ function Library:AddOutline(Frame: GuiObject)
     return OutlineStroke, ShadowStroke
 end
 
+function Library:AddGlow(Frame: GuiObject, GlowColor: any?, Layers: number?, MaxThickness: number?)
+    GlowColor = GlowColor or "AccentColor"
+    Layers = Layers or 5
+    MaxThickness = MaxThickness or 12
+
+    local GlowStrokes = {}
+
+    for Index = 1, Layers do
+        local Alpha = Index / Layers
+
+        local GlowStroke = New("UIStroke", {
+            Color = GlowColor,
+            Thickness = MaxThickness * Alpha,
+            Transparency = 0.15 + (Alpha * 0.75),
+            ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+            LineJoinMode = Enum.LineJoinMode.Round,
+            Parent = Frame,
+        })
+
+        table.insert(GlowStrokes, GlowStroke)
+    end
+
+    return GlowStrokes
+end
+
 function Library:AddBlank(Frame: GuiObject, Size: UDim2)
     return New("Frame", {
         BackgroundTransparency = 1,
@@ -10708,6 +10733,7 @@ function Library:CreateWindow(WindowInfo)
             })
         )
         Library:AddOutline(MainFrame)
+        Library:AddGlow(MainFrame)
         Library:MakeLine(MainFrame, {
             Position = UDim2.fromOffset(0, 48),
             Size = UDim2.new(1, 0, 0, 1),
@@ -10954,29 +10980,29 @@ CurrentTabDescription = New("TextLabel", {
             Library:ApplyLucideIcon(SearchIconImage, SearchIcon)
         end
 
-        if MoveIcon then
-            local MoveIconImage = New("ImageLabel", {
-                AnchorPoint = Vector2.new(1, 0.5),
-                ImageColor3 = "OutlineColor",
-                Position = UDim2.new(1, -10, 0.5, 0),
-                Size = UDim2.fromOffset(28, 28),
-                SizeConstraint = Enum.SizeConstraint.RelativeYY,
-                Parent = TopBar,
-            })
-            Library:ApplyLucideIcon(MoveIconImage, MoveIcon)
-        end
+if MoveIcon then
+    local MoveIconImage = New("ImageLabel", {
+        AnchorPoint = Vector2.new(1, 0.5),
+        ImageColor3 = "AccentColor",
+        Position = UDim2.new(1, -10, 0.5, 0),
+        Size = UDim2.fromOffset(28, 28),
+        SizeConstraint = Enum.SizeConstraint.RelativeYY,
+        Parent = TopBar,
+    })
+    Library:ApplyLucideIcon(MoveIconImage, MoveIcon)
+end
 
 if WindowInfo.Resizable then
-            ResizeButton = New("ImageButton", {
-                AnchorPoint = Vector2.new(1, 0.5),
-                BackgroundTransparency = 1,
-                ImageColor3 = "OutlineColor",
-                Position = UDim2.new(1, -46, 0.5, 0),
-                Size = UDim2.fromOffset(28, 28),
-                SizeConstraint = Enum.SizeConstraint.RelativeYY,
-                AutoButtonColor = false,
-                Parent = TopBar,
-            })
+ResizeButton = New("ImageButton", {
+    AnchorPoint = Vector2.new(1, 0.5),
+    BackgroundTransparency = 1,
+    ImageColor3 = "AccentColor",
+    Position = UDim2.new(1, -46, 0.5, 0),
+    Size = UDim2.fromOffset(28, 28),
+    SizeConstraint = Enum.SizeConstraint.RelativeYY,
+    AutoButtonColor = false,
+    Parent = TopBar,
+})
             if ResizeIcon then
                 Library:ApplyLucideIcon(ResizeButton, ResizeIcon)
             end
