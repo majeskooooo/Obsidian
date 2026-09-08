@@ -12324,16 +12324,17 @@ end
                     Size = UDim2.new(1, 0, 0, 1),
                 })
 
-                GroupboxContainer = New("ScrollingFrame", {
-                    AutomaticCanvasSize = Enum.AutomaticSize.Y,
-                    BackgroundTransparency = 1,
-                    BorderSizePixel = 0,
-                    CanvasSize = UDim2.fromScale(0, 0),
-                    LayoutOrder = 2,
-                    ScrollBarThickness = 0,
-                    Size = UDim2.fromScale(1, 0),
-                    Parent = GroupboxHolder,
-                })
+GroupboxContainer = New("ScrollingFrame", {
+    AutomaticCanvasSize = Enum.AutomaticSize.Y,
+    BackgroundTransparency = 1,
+    BorderSizePixel = 0,
+    CanvasSize = UDim2.fromScale(0, 0),
+    LayoutOrder = 2,
+    ScrollBarThickness = 0,
+    ScrollingEnabled = false,
+    Size = UDim2.fromScale(1, 0),
+    Parent = GroupboxHolder,
+})
 
                 GroupboxList = New("UIListLayout", {
                     Padding = UDim.new(0, 8),
@@ -12384,9 +12385,10 @@ end
                     ContainerSize = math.min(ContainerSize, GetPopOutBodyMaxHeight(Groupbox, TopSize + 1))
                 end
 
-                local TargetSize = UDim2.new(1, 0, 0, if Groupbox.Collapsed then TopSize else (TopSize + 1 + ContainerSize))
-                GroupboxContainer.Size = UDim2.new(1, 0, 0, ContainerSize)
-                GroupboxLine.Visible = not Groupbox.Collapsed
+local TargetSize = UDim2.new(1, 0, 0, if Groupbox.Collapsed then TopSize else (TopSize + 1 + ContainerSize))
+GroupboxContainer.Size = UDim2.new(1, 0, 0, ContainerSize)
+GroupboxContainer.ScrollingEnabled = Groupbox.PoppedOut == true
+GroupboxLine.Visible = not Groupbox.Collapsed
 
                 if Library.Animations and Library.Animations.Groupbox then
                     local TweenInfo = Library.GroupboxTweenInfo or TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
