@@ -11479,16 +11479,16 @@ end
                 Parent = ButtonHolder,
             })
             TabLabel = New("TextLabel", {
-                BackgroundTransparency = 1,
-                Position = UDim2.fromOffset(30, 0),
-                Size = UDim2.new(1, -30, 1, 0),
-                Text = Name,
-                TextSize = 16,
-                TextTransparency = 0.5,
-                TextXAlignment = Enum.TextXAlignment.Left,
-                Visible = not IsCompact,
-                Parent = ButtonHolder,
-            })
+    BackgroundTransparency = 1,
+    Position = UDim2.fromOffset(26, 0),
+    Size = UDim2.new(1, -26, 1, 0),
+    Text = Name,
+    TextSize = 16,
+    TextTransparency = 0.5,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    Visible = not IsCompact,
+    Parent = ButtonHolder,
+})
 
             if Icon then
                 TabIcon = New("ImageLabel", {
