@@ -11392,17 +11392,13 @@ end
         CurrentTabLabel.Text = Name
         CurrentTabDescription.Text = Description
 
-        if IsDefaultSearchbarSize then
-            SearchBox.Size = UDim2.fromScale(0.5, 1)
-        end
+        SearchBox.Size = UDim2.fromScale(WindowInfo.SearchbarSize.X.Scale * 0.5, 1)
         CurrentTabInfo.Visible = true
     end
 
     function Window:HideTabInfo()
         CurrentTabInfo.Visible = false
-        if IsDefaultSearchbarSize then
-            SearchBox.Size = UDim2.fromScale(1, 1)
-        end
+        SearchBox.Size = WindowInfo.SearchbarSize
     end
 
     function Window:AddTab(...)
