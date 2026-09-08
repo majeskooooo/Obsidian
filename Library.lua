@@ -11493,10 +11493,12 @@ end
 
             if Icon then
                 TabIcon = New("ImageLabel", {
+                    AnchorPoint = IsCompact and Vector2.new(0, 0) or Vector2.new(0, 0.5),
+                    Position = IsCompact and UDim2.fromScale(0, 0) or UDim2.new(0, 0, 0.5, 0),
                     ImageColor3 = Icon.Custom and "WhiteColor" or "AccentColor",
                     ImageTransparency = 0.5,
                     ScaleType = Enum.ScaleType.Fit,
-                    Size = UDim2.fromScale(1, 1),
+                    Size = IsCompact and UDim2.fromScale(1, 1) or UDim2.fromOffset(18, 18),
                     SizeConstraint = IsCompact and Enum.SizeConstraint.RelativeXY or Enum.SizeConstraint.RelativeYY,
                     Parent = ButtonHolder,
                 })
@@ -12850,10 +12852,12 @@ end
 
             if Icon then
                 TabIcon = New("ImageLabel", {
+                    AnchorPoint = IsCompact and Vector2.new(0, 0) or Vector2.new(0, 0.5),
+                    Position = IsCompact and UDim2.fromScale(0, 0) or UDim2.new(0, 0, 0.5, 0),
                     ImageColor3 = Icon.Custom and "WhiteColor" or "AccentColor",
                     ImageTransparency = 0.5,
                     ScaleType = Enum.ScaleType.Fit,
-                    Size = UDim2.fromScale(1, 1),
+                    Size = IsCompact and UDim2.fromScale(1, 1) or UDim2.fromOffset(18, 18),
                     SizeConstraint = IsCompact and Enum.SizeConstraint.RelativeXY or Enum.SizeConstraint.RelativeYY,
                     Parent = ButtonHolder,
                 })
