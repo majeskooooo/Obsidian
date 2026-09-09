@@ -12471,6 +12471,12 @@ GroupboxLine.Visible = not Groupbox.Collapsed
                 end
             end
 
+            Library:GiveSignal(GroupboxContainer:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
+                if not Groupbox.PoppedOut and GroupboxContainer.CanvasPosition ~= Vector2.zero then
+                    GroupboxContainer.CanvasPosition = Vector2.zero
+                end
+            end))
+
             function Groupbox:SetDescription(Description: string | nil)
                 GroupboxDescription.Text = Description or ""
                 GroupboxDescription.Visible = (Description ~= nil)
