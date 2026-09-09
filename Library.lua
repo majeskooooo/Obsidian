@@ -12471,11 +12471,45 @@ GroupboxLine.Visible = not Groupbox.Collapsed
                 end
             end
 
-            Library:GiveSignal(GroupboxContainer:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
-                if not Groupbox.PoppedOut and GroupboxContainer.CanvasPosition ~= Vector2.zero then
-                    GroupboxContainer.CanvasPosition = Vector2.zero
-                end
-            end))
+            do
+                local ParentScroll = (Info.Side == 1) and TabLeft or TabRight
+                local GroupboxDragTranslation
+
+                table.insert(Groupbox.Connections, UserInputService.TouchPan:Connect(function(touchPositions, totalTranslation, _, state)
+                    if Groupbox.PoppedOut then
+                        return
+                    end
+
+                    local touchPos = touchPositions[1]
+                    if not touchPos then
+                        return
+                    end
+
+                    if state == Enum.UserInputState.Begin then
+                        if Library:MouseIsOverFrame(GroupboxContainer, touchPos) then
+                            GroupboxDragTranslation = totalTranslation
+                        else
+                            GroupboxDragTranslation = nil
+                        end
+                        return
+                    end
+
+                    if not GroupboxDragTranslation then
+                        return
+                    end
+
+                    local Delta = totalTranslation - GroupboxDragTranslation
+                    GroupboxDragTranslation = totalTranslation
+
+                    local MaxY = math.max(0, ParentScroll.AbsoluteCanvasSize.Y - ParentScroll.AbsoluteWindowSize.Y)
+                    local NewY = math.clamp(ParentScroll.CanvasPosition.Y - Delta.Y, 0, MaxY)
+                    ParentScroll.CanvasPosition = Vector2.new(ParentScroll.CanvasPosition.X, NewY)
+
+                    if state == Enum.UserInputState.End or state == Enum.UserInputState.Cancel then
+                        GroupboxDragTranslation = nil
+                    end
+                end))
+            end
 
             function Groupbox:SetDescription(Description: string | nil)
                 GroupboxDescription.Text = Description or ""
