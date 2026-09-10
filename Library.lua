@@ -12383,14 +12383,10 @@ end
                     Size = UDim2.new(1, 0, 0, 1),
                 })
 
-GroupboxContainer = New("ScrollingFrame", {
-    AutomaticCanvasSize = Enum.AutomaticSize.Y,
+GroupboxContainer = New("Frame", {
     BackgroundTransparency = 1,
     BorderSizePixel = 0,
-    CanvasSize = UDim2.fromScale(0, 0),
     LayoutOrder = 2,
-    ScrollBarThickness = 0,
-    ScrollingEnabled = false,
     Size = UDim2.fromScale(1, 0),
     Parent = GroupboxHolder,
 })
@@ -12446,7 +12442,6 @@ GroupboxContainer = New("ScrollingFrame", {
 
 local TargetSize = UDim2.new(1, 0, 0, if Groupbox.Collapsed then TopSize else (TopSize + 1 + ContainerSize))
 GroupboxContainer.Size = UDim2.new(1, 0, 0, ContainerSize)
-GroupboxContainer.ScrollingEnabled = Groupbox.PoppedOut == true
 GroupboxLine.Visible = not Groupbox.Collapsed
 
                 if Library.Animations and Library.Animations.Groupbox then
@@ -12470,12 +12465,6 @@ GroupboxLine.Visible = not Groupbox.Collapsed
                     GroupboxHolder.Size = TargetSize
                 end
             end
-
-            table.insert(Groupbox.Connections, RunService.Heartbeat:Connect(function()
-                if not Groupbox.PoppedOut and GroupboxContainer.CanvasPosition ~= Vector2.zero then
-                    GroupboxContainer.CanvasPosition = Vector2.zero
-                end
-            end))
 
             function Groupbox:SetDescription(Description: string | nil)
                 GroupboxDescription.Text = Description or ""
